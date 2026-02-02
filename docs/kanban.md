@@ -91,11 +91,11 @@
   - workload: Hard
   - defaultExpanded: true
   - steps:
-      - [ ] 1. Create server with layered architecture
-      - [ ] 2. Server GET /api/v1/getPlaces?post_code=EX44QJ returns JSON list with dummy data
+      - [x] 1. Create server with layered architecture
+      - [x] 2. Server GET "/getPlaces?postcode=EX4 4QJ" returns JSON list with dummy data
       - [ ] 3, Design Scrollable 'Places' page
       - [ ] 4. Create web app
-      - [ ] 5. Client sends getPlaces request to server with dummy postcode and received JSON list of places
+      - [ ] 5. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
       - [ ] 6. Client displays place names as a scrollable list of cards
 
 ## Done
