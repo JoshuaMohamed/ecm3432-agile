@@ -1,0 +1,119 @@
+<mxfile host="65bd71144e">
+    <diagram id="YH8LbfTdbLtodnzkvDv1" name="Page-1">
+        <mxGraphModel dx="1289" dy="1356" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="740" pageHeight="620" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="50" value="" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.browserWindow;rSize=0;strokeColor=#666666;strokeColor2=#008cff;strokeColor3=#c4c4c4;mainText=,;recursiveResize=0;" parent="1" vertex="1">
+                    <mxGeometry y="-620" width="760" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="Communit..." style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.anchor;fontSize=17;fontColor=#666666;align=left;whiteSpace=wrap;" parent="50" vertex="1">
+                    <mxGeometry x="60" y="12" width="110" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" value="http://localhost:3000/" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.anchor;rSize=0;fontSize=17;fontColor=#666666;align=left;" parent="50" vertex="1">
+                    <mxGeometry x="130" y="60" width="250" height="26" as="geometry"/>
+                </mxCell>
+                <mxCell id="53" value="" style="dashed=0;shape=rect;" parent="50" vertex="1">
+                    <mxGeometry y="110" width="760" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="58" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Community Tourist Assistant&lt;/font&gt;" style="dashed=0;shape=rect;resizeWidth=1;resizeHeight=1;fontSize=20;spacingTop=9;verticalAlign=top;align=left;spacingLeft=40;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="53" vertex="1">
+                    <mxGeometry width="760" height="60" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" value="" style="shape=image;editableCssRules=.*;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0wLjUgLTAuNSAyOCAyOCIgaGVpZ2h0PSIyOCIgd2lkdGg9IjI4Ij4KCSAgPHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3QwIHsgc3RvcC1jb2xvcjogbGlnaHQtZGFyayhyZ2IoMCwgMCwgMCksIHJnYigxOCwgMTgsIDE4KSk7IH0gLnN0MSB7IHN0b3AtY29sb3I6IGxpZ2h0LWRhcmsocmdiKDAsIDAsIDApLCByZ2IoMTgsIDE4LCAxOCkpOyB9IDwvc3R5bGU+Cgk8ZGVmcz4KCQk8bGluZWFyR3JhZGllbnQgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIHkyPSIyNS4zMDkiIHgyPSIyMy40NTQiIHkxPSIzLjQ3NCIgeDE9IjIuMDM5IiBpZD0iQSI+CgkJCTxzdG9wIGNsYXNzPSJzdDAiLz4KCQkJPHN0b3AgY2xhc3M9InN0MSIgb2Zmc2V0PSIxIi8+CgkJPC9saW5lYXJHcmFkaWVudD4KCTwvZGVmcz4KCTxwYXRoIGZpbGw9InVybCgjQSkiIGQ9Ik0tLjUgMTMuNDcyYzAtMS45My4zNzEtMy43MyAxLjExMy01LjQuNzQyLTEuNzA3IDEuNzQ0LTMuMTkyIDMuMDA2LTQuNDUzUzYuMzY1IDEuMzU2IDguMDczLjYxMyAxMS41OTgtLjUgMTMuNTI4LS41czMuNzMuMzcxIDUuNCAxLjExM2MxLjcwNy43NDIgMy4xOTIgMS43NDQgNC40NTMgMy4wMDZzMi4yNjQgMi43NDYgMy4wMDYgNC40NTNjLjc0MiAxLjY3IDEuMTEzIDMuNDcgMS4xMTMgNS40cy0uMzcxIDMuNzQ4LTEuMTEzIDUuNDU1LTEuNzQ0IDMuMTkyLTMuMDA2IDQuNDUzYTE0LjI4IDE0LjI4IDAgMCAxLTQuNDUzIDMuMDA2Yy0xLjY3Ljc0Mi0zLjQ3IDEuMTEzLTUuNCAxLjExM3MtMy43NDgtLjM3MS01LjQ1NS0xLjExM2ExNC4yOCAxNC4yOCAwIDAgMS00LjQ1My0zLjAwNiAxNC4yOCAxNC4yOCAwIDAgMS0zLjAwNi00LjQ1M0MtLjEyOSAxNy4yMi0uNSAxNS40MDItLjUgMTMuNDcyem0xNi44MTEgNC4yMzFhNi42NSA2LjY1IDAgMCAxIDMuMjg0LjgzNWMxLjAwMi41MiAxLjgxOCAxLjI0MyAyLjQ0OSAyLjE3MWExMC4xNCAxMC4xNCAwIDAgMCAxLjk0OC0zLjI4NGMuNDgyLTEuMjI1LjcyNC0yLjU0Mi43MjQtMy45NTIgMC0xLjU1OS0uMjk3LTMuMDA2LS44OTEtNC4zNDItLjU5NC0xLjM3My0xLjM5Mi0yLjU2MS0yLjM5NC0zLjU2M3MtMi4xOS0xLjgtMy41NjMtMi4zOTRjLTEuMzM2LS41OTQtMi43ODMtLjg5MS00LjM0Mi0uODkxcy0zLjAyNC4yOTctNC4zOTguODkxYy0xLjMzNi41OTQtMi41MjQgMS4zOTItMy41NjMgMi4zOTRBMTEuMzUgMTEuMzUgMCAwIDAgMy4xNzQgOS4xM2MtLjU5NCAxLjMzNi0uODkxIDIuNzgzLS44OTEgNC4zNDIgMCAxLjQxLjIyMyAyLjcyOC42NjggMy45NTIuNDgyIDEuMjI1IDEuMTUgMi4zMTkgMi4wMDQgMy4yODQuNjMxLS45MjggMS40NDctMS42NTEgMi40NDktMi4xNzFhNi42NSA2LjY1IDAgMCAxIDMuMjg0LS44MzV6bTIuNzgzLTcuMDE0YTUuNjggNS42OCAwIDAgMS0uNDQ1IDIuMjI3IDUuODcgNS44NyAwIDAgMS0xLjIyNSAxLjc4MWMtLjQ4Mi40ODItMS4wNTguODcyLTEuNzI2IDEuMTY5cy0xLjM5Mi40NDUtMi4xNzEuNDQ1YTUuNjggNS42OCAwIDAgMS0yLjIyNy0uNDQ1IDYuNDQgNi40NCAwIDAgMS0xLjc4MS0xLjE2OSA2LjQ0IDYuNDQgMCAwIDEtMS4xNjktMS43ODEgNS42OCA1LjY4IDAgMCAxLS40NDUtMi4yMjdjMC0uNzc5LjE0OC0xLjUwMy40NDUtMi4xNzFBNi40NCA2LjQ0IDAgMCAxIDkuNTIgNi43MzdhNS44NyA1Ljg3IDAgMCAxIDEuNzgxLTEuMjI1IDUuNjggNS42OCAwIDAgMSAyLjIyNy0uNDQ1Yy43NzkgMCAxLjUwMy4xNDggMi4xNzEuNDQ1czEuMjQzLjcwNSAxLjcyNiAxLjIyNWE1Ljg3IDUuODcgMCAwIDEgMS4yMjUgMS43ODFjLjI5Ny42NjguNDQ1IDEuMzkyLjQ0NSAyLjE3MXptLTIuNzgzIDBjMC0uNzc5LS4yNzgtMS40MjktLjgzNS0xLjk0OC0uNTU3LS41NTctMS4yMDYtLjgzNS0xLjk0OC0uODM1YTIuNzMgMi43MyAwIDAgMC0yLjAwNC44MzVjLS41NTcuNTItLjgzNSAxLjE2OS0uODM1IDEuOTQ4YTIuNzMgMi43MyAwIDAgMCAuODM1IDIuMDA0Yy41NTcuNTIgMS4yMjUuNzc5IDIuMDA0Ljc3OS43NDIgMCAxLjM5Mi0uMjYgMS45NDgtLjc3OWEyLjczIDIuNzMgMCAwIDAgLjgzNS0yLjAwNHpNNy4wNzEgMjIuNjU3Yy44OTEuNjMxIDEuODc0IDEuMTMyIDIuOTUgMS41MDMgMS4xMTMuMzcxIDIuMjgyLjU1NyAzLjUwNy41NTcgMS4xODggMCAyLjMxOS0uMTg2IDMuMzk2LS41NTcgMS4xMTMtLjM3MSAyLjExNS0uODcyIDMuMDA2LTEuNTAzLS4zNzEtLjY2OC0uODkxLTEuMTg4LTEuNTU5LTEuNTU5LS42MzEtLjQwOC0xLjMxNy0uNjEyLTIuMDYtLjYxMmgtNS42MjJjLS43NDIgMC0xLjQ0Ny4yMDQtMi4xMTUuNjEyLS42MzEuMzcxLTEuMTMyLjg5MS0xLjUwMyAxLjU1OXoiLz4KPC9zdmc+;imageBackground=none;" parent="53" vertex="1">
+                    <mxGeometry x="712" y="16" width="28" height="28" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="" style="group" parent="50" vertex="1" connectable="0">
+                    <mxGeometry x="207" y="190" width="327" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="&lt;font style=&quot;color: rgb(204, 204, 204);&quot;&gt;Enter Postcode...&lt;/font&gt;" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.forms.searchBox;strokeColor=#999999;mainText=;strokeColor2=#008cff;fontColor=#666666;fontSize=17;align=left;spacingLeft=3;whiteSpace=wrap;" parent="77" vertex="1">
+                    <mxGeometry width="187" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="&lt;font style=&quot;font-size: 17px; background-color: light-dark(#ffffff, var(--ge-dark-color, #121212));&quot;&gt;Area&lt;/font&gt;" style="rounded=1;html=1;whiteSpace=wrap;align=center;fontSize=12;spacingLeft=0;sketch=0;strokeColor=#999999;spacingRight=10;" parent="77" vertex="1">
+                    <mxGeometry x="207" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="" style="shape=triangle;direction=south;fillColor=#596780;strokeColor=none;html=1;sketch=0;" parent="75" vertex="1">
+                    <mxGeometry x="1" y="0.5" width="12" height="6" relative="1" as="geometry">
+                        <mxPoint x="-20" y="-3" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="78" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.graphics.simpleIcon;strokeColor=#999999;" parent="50" vertex="1">
+                    <mxGeometry x="100" y="240" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;aspect=fixed;fillColor=#000000;" parent="50" vertex="1">
+                    <mxGeometry x="347" y="240" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;The Tall Statue&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;EX4 4QA&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="50" vertex="1">
+                    <mxGeometry x="207" y="230" width="140" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;fillColor=#000000;" parent="50" vertex="1">
+                    <mxGeometry x="380" y="240" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;fillColor=#000000;" parent="50" vertex="1">
+                    <mxGeometry x="410" y="240" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="85" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;fillColor=#000000;" parent="50" vertex="1">
+                    <mxGeometry x="440" y="240" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star" parent="50" vertex="1">
+                    <mxGeometry x="470" y="240" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="A very tall statue in Exeter. The statue is made of stone and is very tall.&lt;br&gt;It was created by Julian of Norwich in the 12th century for the mayor..." style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#7F7F7F;" vertex="1" parent="50">
+                    <mxGeometry x="207" y="280" width="400" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="113 reviews" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#7F7F7F;" vertex="1" parent="50">
+                    <mxGeometry x="500" y="235" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.graphics.simpleIcon;strokeColor=#999999;" vertex="1" parent="50">
+                    <mxGeometry x="100" y="350" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;aspect=fixed;fillColor=#000000;" vertex="1" parent="50">
+                    <mxGeometry x="347" y="350" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;The Small Statue&lt;br&gt;&lt;/font&gt;&lt;/b&gt;&lt;font&gt;EX4 4QB&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="50">
+                    <mxGeometry x="207" y="340" width="150" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star;strokeColor=#000000;fillColor=#000000;" vertex="1" parent="50">
+                    <mxGeometry x="380" y="350" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star" vertex="1" parent="50">
+                    <mxGeometry x="410" y="350" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star" vertex="1" parent="50">
+                    <mxGeometry x="440" y="350" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.star" vertex="1" parent="50">
+                    <mxGeometry x="470" y="350" width="23" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="A very small statue in Exeter. The statue is made of clay and is very small.&lt;br&gt;&lt;span style=&quot;color: rgb(127, 127, 127);&quot;&gt;It was created by Hildegard Von Bingen in the 12th century for the earl...&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#7F7F7F;" vertex="1" parent="50">
+                    <mxGeometry x="207" y="390" width="420" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="21 reviews" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#7F7F7F;" vertex="1" parent="50">
+                    <mxGeometry x="500" y="345" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="" style="html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;shadow=0;dashed=0;strokeWidth=2;shape=mxgraph.ios7.misc.scroll_(vertical);fillColor=#a0a0a0;" vertex="1" parent="50">
+                    <mxGeometry x="690" y="235" width="6" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="110" value="" style="swimlane;container=1;shape=mxgraph.bootstrap.rrect;rSize=5;strokeColor=#999999;fillColor=#ffffff;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=0;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="414" y="-397" width="120" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="" style="text;align=center;verticalAlign=middle;spacingLeft=10;spacingRight=10;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=inherit;" vertex="1" parent="110">
+                    <mxGeometry width="120" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="112" value="Area" style="text;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=inherit;fontSize=14;fontStyle=0;" vertex="1" parent="110">
+                    <mxGeometry y="10" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="113" value="District" style="text;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=inherit;fontSize=14;fontStyle=0;" vertex="1" parent="110">
+                    <mxGeometry y="40" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="114" value="Sector" style="text;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=inherit;fontSize=14;fontStyle=0;" vertex="1" parent="110">
+                    <mxGeometry y="70" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="115" value="" style="text;align=center;verticalAlign=middle;spacingLeft=10;spacingRight=10;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontColor=inherit;" vertex="1" parent="110">
+                    <mxGeometry y="100" width="120" height="10" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
