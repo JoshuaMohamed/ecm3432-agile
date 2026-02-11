@@ -2,10 +2,6 @@
 
 ## Backlog
 
-### As a Tourist I want to see cover photos of places so that I can visualise list items.
-
-  - tags: [Epic: Scrollable 'Places' page]
-
 ### As a Tourist I want to see a place's star rating out of 5 so that I can compare it to other options.
 
   - tags: [Epic: Scrollable 'Places' page]
@@ -84,19 +80,44 @@
 
 ## In Progress
 
+### As a Tourist I want to see cover photos of places so that I can visualise list items.
+
+  - due: 2026-02-25
+  - tags: [Sprint 2, Epic: Scrollable 'Places' page]
+  - workload: Normal
+  - defaultExpanded: true
+  - steps:
+      - [ ] 1. Add cover filename to Places table
+      - [ ] 2. Display photo alongside place summary in the 'Places' list
+
+### Tech Debt: 'Places' Web App Calls Get Places API
+
+  - due: 2026-02-25
+  - tags: [Sprint 2, Epic: Scrollable 'Places' page]
+  - workload: Easy
+  - defaultExpanded: true
+  - steps:
+      - [ ] 1. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
+      - [ ] 2. Client displays place names as a scrollable list of cards
+
+### Tech Debt: Get Places API Unit Tests
+
+  - due: 2026-02-25
+  - tags: [Sprint 2, Epic: Scrollable 'Places' page]
+  - workload: Easy
+
+## Done
+
 ### As a Tourist I want to see a list of local places so that I can identify somewhere to visit.
 
-  - due: 2026-02-04
   - tags: [Sprint 1, Epic: Scrollable 'Places' page]
   - workload: Hard
   - defaultExpanded: true
   - steps:
       - [x] 1. Create server with layered architecture
       - [x] 2. Server GET "/getPlaces?postcode=EX4 4QJ" returns JSON list with dummy data
-      - [ ] 3, Design Scrollable 'Places' page
-      - [ ] 4. Create web app
+      - [x] 3, Design Scrollable 'Places' page
+      - [x] 4. Create web app
       - [ ] 5. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
       - [ ] 6. Client displays place names as a scrollable list of cards
-
-## Done
 

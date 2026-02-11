@@ -43,7 +43,7 @@ func (c *DatabaseClient) CreateTable(details logic.TableDetails) error {
 	return err
 }
 
-func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (*sql.Rows, error) {
+func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (logic.PlacesRows, error) {
 	return c.db.Query("SELECT name, postcode FROM Places WHERE postcode LIKE ? LIMIT ? OFFSET ?;", prefix+"%", limit, offset)
 }
 

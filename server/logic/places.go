@@ -14,11 +14,11 @@ type Place struct {
 func GetPlaces(db Database, postcode, filter string, limit, offset int) ([]Place, error) {
 	postcode = strings.ToUpper(strings.TrimSpace(postcode))
 
-	if !isValidPostcode(postcode) {
+	if !IsValidPostcode(postcode) {
 		return nil, fmt.Errorf("Invalid postcode: %s", postcode)
 	}
 
-	prefix, err := getSearchPrefix(postcode, filter)
+	prefix, err := GetSearchPrefix(postcode, filter)
 	if err != nil {
 		return nil, err
 	}
@@ -44,12 +44,12 @@ func GetPlaces(db Database, postcode, filter string, limit, offset int) ([]Place
 	return places, nil
 }
 
-func isValidPostcode(postcode string) bool {
+func IsValidPostcode(postcode string) bool {
 	re := regexp.MustCompile(`^[A-Z0-9]{2,4} [A-Z0-9]{3}$`)
 	return re.MatchString(postcode)
 }
 
-func getSearchPrefix(postcode, filter string) (string, error) {
+func GetSearchPrefix(postcode, filter string) (string, error) {
 	parts := strings.Split(postcode, " ")
 	if len(parts) != 2 {
 		return "", fmt.Errorf("Invalid postcode: %s", postcode)
