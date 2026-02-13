@@ -1,0 +1,87 @@
+.card {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.thumb {
+  width: 90px;
+  height: 90px;
+  border: 1px solid #a5a5a5;
+  background: #fff;
+}
+
+.details h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.postcode {
+  margin: 2px 0 0;
+  color: #666;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #111;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+.star.filled {
+  background: #111;
+}
+
+.reviews {
+  margin-left: 8px;
+  color: #777;
+  font-size: 14px;
+}
+
+.summary {
+  margin: 8px 0 0;
+  color: #777;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+
+  .thumb {
+    width: 100%;
+    height: 160px;
+  }
+
+  .title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,113 @@
+.filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 24px;
+}
+
+.search {
+  position: relative;
+}
+
+.search input {
+  width: 240px;
+  height: 36px;
+  padding: 0 36px 0 12px;
+  border: 1px solid #9c9c9c;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #4b79ff;
+  border-radius: 999px;
+  transform: translateY(-50%);
+}
+
+.search-icon::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  bottom: -6px;
+  width: 7px;
+  height: 2px;
+  background: #4b79ff;
+  transform: rotate(45deg);
+}
+
+.select {
+  position: relative;
+}
+
+.select-trigger {
+  height: 36px;
+  min-width: 140px;
+  padding: 0 34px 0 12px;
+  border: 1px solid #9c9c9c;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+
+.chevron {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #5a6a85;
+  transform: translateY(-40%);
+}
+
+.select-menu {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 42px;
+  width: 140px;
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  background: #fff;
+  z-index: 10;
+}
+
+.select-menu.open {
+  display: block;
+}
+
+.select-option {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.select-option:hover,
+.select-option.active,
+.select-option[aria-selected="true"] {
+  background: #f0f0f0;
+}
+
+@media (max-width: 720px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
