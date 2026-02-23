@@ -23,3 +23,8 @@
   padding-left: 24px;
   padding-right: 24px;
 }
+
+.error {
+    margin: 4px 0 12px;
+    color: #b00020;
+}

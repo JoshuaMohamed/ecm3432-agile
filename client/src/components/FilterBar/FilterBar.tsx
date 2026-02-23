@@ -1,10 +1,23 @@
 import { useState, useRef, useEffect } from "react";
+import { filterOptions, type FilterOption } from "../../data/filters";
 import "./FilterBar.css";
 
-function FilterBar() {
-  const options = ["Area", "District", "Sector"] as const;
+// Dev note: controlled inputs keep form values in React state so parent can submit them
+type FilterBarProps = {
+  postcode: string;
+  onPostcodeChange: (value: string) => void;
+  selectedFilter: FilterOption;
+  onFilterChange: (value: FilterOption) => void;
+  onSubmit: () => void;
+};
 
-  const [selected, setSelected] = useState<(typeof options)[number]>("Area");
+function FilterBar({
+  postcode,
+  onPostcodeChange,
+  selectedFilter,
+  onFilterChange,
+  onSubmit,
+}: FilterBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -29,7 +42,7 @@ function FilterBar() {
   }, [isOpen]);
 
   const openMenu = () => {
-    setActiveIndex(options.indexOf(selected));
+    setActiveIndex(filterOptions.indexOf(selectedFilter));
     setIsOpen(true);
   };
 
@@ -53,27 +66,42 @@ function FilterBar() {
 
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      setActiveIndex((index) => (index + 1) % options.length);
+      setActiveIndex((index) => (index + 1) % filterOptions.length);
     }
 
     if (event.key === "ArrowUp") {
       event.preventDefault();
-      setActiveIndex((index) => (index - 1 + options.length) % options.length);
+      setActiveIndex(
+        (index) => (index - 1 + filterOptions.length) % filterOptions.length,
+      );
     }
 
     if (event.key === "Enter") {
       event.preventDefault();
-      setSelected(options[activeIndex]);
+      onFilterChange(filterOptions[activeIndex]);
       setIsOpen(false);
     }
   };
 
+  const handleSubmit = (event: React.SubmitEvent) => {
+    event.preventDefault();
+    onSubmit();
+  };
+
   return (
-    <section className="filters">
+    <form className="filters" onSubmit={handleSubmit}>
       <label className="search">
         <span className="sr-only">Postcode</span>
-        <input type="text" placeholder="Enter Postcode..." />
-        <span className="search-icon" aria-hidden="true" />
+        <input
+          type="text"
+          placeholder="Enter Postcode..."
+          // value + onChange makes the input controlled
+          value={postcode}
+          onChange={(event) => onPostcodeChange(event.target.value)}
+        />
+        <button className="search-button" type="submit" aria-label="Search">
+          <span className="search-icon" aria-hidden="true" />
+        </button>
       </label>
 
       <div className="select" ref={selectRef}>
@@ -87,7 +115,7 @@ function FilterBar() {
           aria-expanded={isOpen}
           aria-haspopup="listbox"
         >
-          {selected}
+          {selectedFilter}
           <span className="chevron" aria-hidden="true" />
         </button>
 
@@ -99,18 +127,18 @@ function FilterBar() {
           ref={menuRef}
           onKeyDown={handleMenuKeyDown}
         >
-          {options.map((option, index) => (
+          {filterOptions.map((option, index) => (
             <li
               key={option}
               id={`option-${index}`}
               role="option"
-              aria-selected={selected === option}
+              aria-selected={selectedFilter === option}
             >
               <button
                 type="button"
                 className={`select-option ${activeIndex === index ? "active" : ""}`}
                 onClick={() => {
-                  setSelected(option);
+                  onFilterChange(option);
                   setActiveIndex(index);
                   setIsOpen(false);
                 }}
@@ -121,7 +149,7 @@ function FilterBar() {
           ))}
         </ul>
       </div>
-    </section>
+    </form>
   );
 }
 

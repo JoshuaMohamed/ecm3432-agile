@@ -19,10 +19,28 @@
   font-size: 16px;
 }
 
+.search-button {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.search-button:focus-visible {
+  outline: 2px solid #4b79ff;
+  border-radius: 4px;
+}
+
 .search-icon {
   position: absolute;
-  right: 10px;
-  top: 50%;
+  right: 7px;
+  top: 40%;
   width: 14px;
   height: 14px;
   border: 2px solid #4b79ff;

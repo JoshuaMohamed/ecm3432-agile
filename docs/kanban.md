@@ -37,7 +37,7 @@
   - tags: [Sprint 4, Epic: ‘My Badges’ page]
   - workload: Normal
 
-  ### As an Administrator I want to assign badges so that users are incentivised to contribute.
+### As an Administrator I want to assign badges so that users are incentivised to contribute.
 
   - tags: [Sprint 4, Epic: ‘Manage Accounts’ admin page]
   - workload: Normal
@@ -88,16 +88,6 @@
 
 ## In Progress
 
-### Tech Debt: 'Places' Web App Calls Get Places API
-
-  - due: 2026-02-25
-  - tags: [Sprint 2, Epic: Scrollable 'Places' page]
-  - workload: Easy
-  - defaultExpanded: true
-  - steps:
-      - [ ] 1. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
-      - [ ] 2. Client displays place names as a scrollable list of cards
-
 ### As a Tourist I want to see cover photos of places so that I can visualise list items.
 
   - due: 2026-02-25
@@ -109,6 +99,14 @@
       - [ ] 2. Display photo alongside place summary in the 'Places' list
 
 ## Done
+
+### Tech Debt: 'Places' Web App Calls Get Places API
+
+  - tags: [Sprint 2, Epic: Scrollable 'Places' page]
+  - workload: Easy
+  - steps:
+      - [x] 1. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
+      - [x] 2. Client displays place names as a scrollable list of cards
 
 ### Tech Debt: Get Places API Unit Tests
 

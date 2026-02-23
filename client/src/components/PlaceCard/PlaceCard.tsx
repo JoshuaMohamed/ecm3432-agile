@@ -3,9 +3,9 @@ import "./PlaceCard.css";
 type PlaceCardProps = {
   name: string;
   postcode: string;
-  rating: number;
-  reviews: number;
-  summary: string;
+  rating?: number;
+  reviews?: number;
+  summary?: string;
 };
 
 function PlaceCard({
@@ -15,6 +15,10 @@ function PlaceCard({
   reviews,
   summary,
 }: PlaceCardProps) {
+  const safeRating = rating ?? 0;
+  const safeReviews = reviews ?? 0;
+  const safeSummary = summary ?? "No description yet.";
+
   return (
     <article className="card">
       <div className="thumb" />
@@ -28,13 +32,13 @@ function PlaceCard({
             {[0, 1, 2, 3, 4].map((index) => (
               <span
                 key={index}
-                className={`star ${index < rating ? "filled" : ""}`}
+                className={`star ${index < safeRating ? "filled" : ""}`}
               />
             ))}
-            <span className="reviews">{reviews} reviews</span>
+            <span className="reviews">{safeReviews} reviews</span>
           </div>
         </div>
-        <p className="summary">{summary}</p>
+        <p className="summary">{safeSummary}</p>
       </div>
     </article>
   );

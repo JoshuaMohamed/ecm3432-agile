@@ -32,6 +32,7 @@ func NewRouter(dbClient logic.Database) *Router {
 
 func writeResponse(w http.ResponseWriter, statusCode int, response GeneralResponse) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.WriteHeader(statusCode)
 	b, _ := json.Marshal(response)
 	w.Write(b)
@@ -40,6 +41,7 @@ func writeResponse(w http.ResponseWriter, statusCode int, response GeneralRespon
 func writeErrorResponse(w http.ResponseWriter, statusCode int, message string) {
 	response := GeneralResponse{Data: "", Message: message}
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 	w.WriteHeader(statusCode)
 	b, _ := json.Marshal(response)
 	w.Write(b)
