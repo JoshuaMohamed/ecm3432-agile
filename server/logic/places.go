@@ -9,6 +9,20 @@ import (
 type Place struct {
 	Name     string `json:"name"`
 	Postcode string `json:"postcode"`
+	CoverPath string `json:"cover_path,omitempty"`
+}
+
+func CreatePlace(db Database, place Place) error {
+	if !IsValidPostcode(place.Postcode) {
+		return fmt.Errorf("Invalid postcode: %s", place.Postcode)
+	}
+
+	err := db.CreatePlace(place.Name, place.Postcode, place.CoverPath)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func GetPlaces(db Database, postcode, filter string, limit, offset int) ([]Place, error) {
@@ -32,7 +46,7 @@ func GetPlaces(db Database, postcode, filter string, limit, offset int) ([]Place
 	places := make([]Place, 0)
 	for rows.Next() {
 		var place Place
-		if err := rows.Scan(&place.Name, &place.Postcode); err != nil {
+		if err := rows.Scan(&place.Name, &place.Postcode, &place.CoverPath); err != nil {
 			return nil, err
 		}
 		places = append(places, place)

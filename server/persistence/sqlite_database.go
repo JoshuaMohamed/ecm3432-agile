@@ -43,8 +43,13 @@ func (c *DatabaseClient) CreateTable(details logic.TableDetails) error {
 	return err
 }
 
+func (c *DatabaseClient) CreatePlace(name, postcode, coverPath string) error {
+	_, err := c.Exec("INSERT INTO Places (name,postcode,cover) VALUES (?,?,?);", name, postcode, coverPath)
+	return err
+}
+
 func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (logic.PlacesRows, error) {
-	return c.db.Query("SELECT name, postcode FROM Places WHERE postcode LIKE ? LIMIT ? OFFSET ?;", prefix+"%", limit, offset)
+	return c.db.Query("SELECT name,postcode,cover FROM Places WHERE postcode LIKE ? LIMIT ? OFFSET ?;", prefix+"%", limit, offset)
 }
 
 func (c *DatabaseClient) Exec(query string, args ...interface{}) (sql.Result, error) {

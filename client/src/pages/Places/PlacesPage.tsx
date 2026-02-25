@@ -9,9 +9,9 @@ import "./PlacesPage.css";
 function PlacesPage() {
   const [postcode, setPostcode] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<FilterOption>("Area");
-  const [places, setPlaces] = useState<{ name: string; postcode: string }[]>(
-    [],
-  );
+  const [places, setPlaces] = useState<
+    { name: string; postcode: string; cover_path: string }[]
+  >([]);
   const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
@@ -24,7 +24,7 @@ function PlacesPage() {
     try {
       const response = await fetch(url.toString());
       const data = (await response.json()) as {
-        Data: { name: string; postcode: string }[];
+        Data: { name: string; postcode: string; cover_path: string }[];
         Message?: string;
       };
 
@@ -62,6 +62,7 @@ function PlacesPage() {
               key={`${place.name}-${place.postcode}`}
               name={place.name}
               postcode={place.postcode}
+              coverPath={place.cover_path}
               rating={0}
               reviews={0}
               summary="No description yet."

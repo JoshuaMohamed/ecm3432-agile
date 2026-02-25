@@ -3,6 +3,7 @@ import "./PlaceCard.css";
 type PlaceCardProps = {
   name: string;
   postcode: string;
+  coverPath: string;
   rating?: number;
   reviews?: number;
   summary?: string;
@@ -11,6 +12,7 @@ type PlaceCardProps = {
 function PlaceCard({
   name,
   postcode,
+  coverPath,
   rating,
   reviews,
   summary,
@@ -18,10 +20,11 @@ function PlaceCard({
   const safeRating = rating ?? 0;
   const safeReviews = reviews ?? 0;
   const safeSummary = summary ?? "No description yet.";
+  const imageServer = "http://localhost:8080/assets/";
 
   return (
     <article className="card">
-      <div className="thumb" />
+      <img src={`${imageServer}${coverPath}`} className="cover" />
       <div className="details">
         <div className="title-row">
           <div>

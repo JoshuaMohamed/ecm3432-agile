@@ -25,7 +25,8 @@ func main() {
 		Schema: `
 			id INTEGER PRIMARY KEY,
 			name TEXT NOT NULL,
-			postcode TEXT NOT NULL
+			postcode TEXT NOT NULL,
+			cover TEXT
 		`,
 	})
 	if err != nil {

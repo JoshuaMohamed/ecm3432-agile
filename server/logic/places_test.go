@@ -8,17 +8,24 @@ import (
 )
 
 type mockDB struct {
-	rows         logic.PlacesRows
-	getPlacesErr error
+	rows    logic.PlacesRows
+	dbError error
 }
 
 func (m mockDB) CreateTable(details logic.TableDetails) error {
 	return nil
 }
 
+func (m mockDB) CreatePlace(name, postcode, coverPath string) error {
+	if m.dbError != nil {
+		return m.dbError
+	}
+	return nil
+}
+
 func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.PlacesRows, error) {
-	if m.getPlacesErr != nil {
-		return nil, m.getPlacesErr
+	if m.dbError != nil {
+		return nil, m.dbError
 	}
 	return m.rows, nil
 }
@@ -73,6 +80,66 @@ func (m *mockRows) Close() error {
 	return nil
 }
 
+func TestCreatePlace(t *testing.T) {
+	tests := []struct {
+		name string // description of this test case
+		// Named input parameters for target function.
+		db        logic.Database
+		placeName string
+		postcode  string
+		coverPath string
+		wantErr   bool
+	}{
+		{
+			name:      "success",
+			placeName: "place",
+			postcode:  "EX4 4PY",
+			coverPath: "cover.png",
+			wantErr:   false,
+		},
+		{
+			name:      "invalid postcode",
+			placeName: "place",
+			postcode:  "BAD",
+			coverPath: "cover.png",
+			wantErr:   true,
+		},
+		{
+			name:      "invalid path",
+			placeName: "place",
+			postcode:  "EX4 4PY",
+			coverPath: "cover",
+			wantErr:   false, // TODO: change when validation logic added
+		},
+		{
+			name:      "db error",
+			placeName: "place",
+			postcode:  "EX4 4PY",
+			coverPath: "cover.png",
+			wantErr:   true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.name == "db error" {
+				tt.db = mockDB{dbError: errors.New("db down")}
+			} else {
+				tt.db = mockDB{}
+			}
+			gotErr := logic.CreatePlace(tt.db, logic.Place{Name: tt.placeName, Postcode: tt.postcode, CoverPath: tt.coverPath})
+			if gotErr != nil {
+				if !tt.wantErr {
+					t.Errorf("CreatePlace() failed: %v", gotErr)
+				}
+				return
+			}
+			if tt.wantErr {
+				t.Fatal("CreatePlace() succeeded unexpectedly")
+			}
+		})
+	}
+}
+
 func TestGetPlaces(t *testing.T) {
 	tests := []struct {
 		name string // description of this test case
@@ -120,7 +187,7 @@ func TestGetPlaces(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.name == "db error" {
-				tt.db = mockDB{getPlacesErr: errors.New("db down")}
+				tt.db = mockDB{dbError: errors.New("db down")}
 			} else if tt.name == "success" {
 				tt.db = mockDB{rows: &mockRows{rows: []logic.Place{{Name: "Exeter", Postcode: "EX4 4PY"}}}}
 			} else {

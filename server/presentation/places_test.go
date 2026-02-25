@@ -13,17 +13,24 @@ import (
 )
 
 type mockDB struct {
-	rows         logic.PlacesRows
-	getPlacesErr error
+	rows    logic.PlacesRows
+	dbError error
 }
 
 func (m mockDB) CreateTable(details logic.TableDetails) error {
 	return nil
 }
 
+func (m mockDB) CreatePlace(name, postcode, coverPath string) error {
+	if m.dbError != nil {
+		return m.dbError
+	}
+	return nil
+}
+
 func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.PlacesRows, error) {
-	if m.getPlacesErr != nil {
-		return nil, m.getPlacesErr
+	if m.dbError != nil {
+		return nil, m.dbError
 	}
 	return m.rows, nil
 }
@@ -105,7 +112,7 @@ func TestRouter_GetPlaces_Success(t *testing.T) {
 }
 
 func TestRouter_GetPlaces_DBError(t *testing.T) {
-	db := mockDB{getPlacesErr: errors.New("db down")}
+	db := mockDB{dbError: errors.New("db down")}
 	rt := presentation.NewRouter(db)
 	req := httptest.NewRequest(http.MethodGet, "/getPlaces?postcode=EX4%204PY&filter=district", nil)
 	w := httptest.NewRecorder()
@@ -121,6 +128,42 @@ func TestRouter_GetPlaces_DBError(t *testing.T) {
 		t.Fatalf("read body: %v", err)
 	}
 	if !strings.Contains(string(body), "failed to get places") {
+		t.Fatalf("unexpected response body: %s", string(body))
+	}
+}
+
+func TestRouter_CreatePlace_Success(t *testing.T) {
+	db := mockDB{}
+	rt := presentation.NewRouter(db)
+	req := httptest.NewRequest(http.MethodPost, "/createPlace", strings.NewReader(`{"name":"The Tall Statue","postcode":"EX1 1AA","cover_path":"cover.png"}`))
+	// req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	rt.CreatePlace(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusOK)
+	}
+}
+
+func TestRouter_CreatePlace_DBError(t *testing.T) {
+	db := mockDB{dbError: errors.New("db down")}
+	rt := presentation.NewRouter(db)
+	req := httptest.NewRequest(http.MethodPost, "/createPlace", strings.NewReader(`{"name":"The Tall Statue","postcode":"EX1 1AA","cover_path":"cover.png"}`))
+	w := httptest.NewRecorder()
+
+	rt.CreatePlace(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusInternalServerError)
+	}
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if !strings.Contains(string(body), "Error: failed to create place.") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }

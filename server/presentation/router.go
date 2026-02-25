@@ -25,6 +25,9 @@ func NewRouter(dbClient logic.Database) *Router {
 		db:     dbClient,
 	}
 
+	rt.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+
+	rt.HandleFunc("/createPlace", rt.CreatePlace).Methods("POST")
 	rt.HandleFunc("/getPlaces", rt.GetPlaces).Methods("GET")
 
 	return rt

@@ -88,17 +88,15 @@
 
 ## In Progress
 
+## Done
+
 ### As a Tourist I want to see cover photos of places so that I can visualise list items.
 
-  - due: 2026-02-25
   - tags: [Sprint 2, Epic: Scrollable 'Places' page]
   - workload: Normal
-  - defaultExpanded: true
   - steps:
-      - [ ] 1. Add cover filename to Places table
-      - [ ] 2. Display photo alongside place summary in the 'Places' list
-
-## Done
+      - [x] 1. Add cover filename to Places table
+      - [x] 2. Display photo alongside place summary in the 'Places' list
 
 ### Tech Debt: 'Places' Web App Calls Get Places API
 
