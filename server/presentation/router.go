@@ -16,19 +16,20 @@ type GeneralResponse struct {
 
 type Router struct {
 	*mux.Router
-	db logic.Database
+	service logic.Service
 }
 
-func NewRouter(dbClient logic.Database) *Router {
+func NewRouter(service logic.Service) *Router {
 	rt := &Router{
-		Router: mux.NewRouter(),
-		db:     dbClient,
+		Router:  mux.NewRouter(),
+		service: service,
 	}
 
 	rt.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 
 	rt.HandleFunc("/createPlace", rt.CreatePlace).Methods("POST")
 	rt.HandleFunc("/getPlaces", rt.GetPlaces).Methods("GET")
+	rt.HandleFunc("/createAccount", rt.CreateAccount).Methods("POST")
 
 	return rt
 }

@@ -16,7 +16,7 @@ func (m mockDB) CreateTable(details logic.TableDetails) error {
 	return nil
 }
 
-func (m mockDB) CreatePlace(name, postcode, coverPath string) error {
+func (m mockDB) CreateRow(table string, fields []string, values []interface{}) error {
 	if m.dbError != nil {
 		return m.dbError
 	}

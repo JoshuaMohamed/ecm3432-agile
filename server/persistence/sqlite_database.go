@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"server/logic"
+	"strings"
 
 	_ "github.com/glebarez/go-sqlite"
 )
@@ -43,8 +44,17 @@ func (c *DatabaseClient) CreateTable(details logic.TableDetails) error {
 	return err
 }
 
-func (c *DatabaseClient) CreatePlace(name, postcode, coverPath string) error {
-	_, err := c.Exec("INSERT INTO Places (name,postcode,cover) VALUES (?,?,?);", name, postcode, coverPath)
+func (c *DatabaseClient) CreateRow(table string, fields []string, values []interface{}) error {
+	placeholders := make([]string, len(fields))
+	for i := range placeholders {
+		placeholders[i] = "?"
+	}
+	query := fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s);",
+		table,
+		strings.Join(fields, ","),
+		strings.Join(placeholders, ","),
+	)
+	_, err := c.Exec(query, values...)
 	return err
 }
 

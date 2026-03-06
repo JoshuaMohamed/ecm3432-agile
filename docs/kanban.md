@@ -2,30 +2,15 @@
 
 ## Backlog
 
-### As a Tourist/Local I want to create an account of type Tourist/Local so that I can contribute to the platform.
+### As a Tourist I want to leave a star rating out of 5 so that I can raise the profile of a place.
 
-  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - tags: [Sprint 3, Epic: ‘Place’ details page]
   - workload: Normal
-
-### As a Tourist/Local I want to log in so that I can contribute using my existing account.
-
-  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
-  - workload: Normal
-
-### As a Tourist/Local I want to log out so that I can use a different account.
-
-  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
-  - workload: Easy
 
 ### As a Tourist I want to see a place's star rating out of 5 so that I can compare it to other options.
 
   - tags: [Sprint 3, Epic: Scrollable 'Places' page]
   - workload: Easy
-
-### As a Tourist I want to leave a star rating out of 5 so that I can raise the profile of a place.
-
-  - tags: [Sprint 3, Epic: ‘Place’ details page]
-  - workload: Normal
 
 ### As a Local I want to upload new places so that I can contribute to the platform.
 
@@ -88,6 +73,21 @@
 
 ## In Progress
 
+### As a Tourist/Local I want to create an account of type Tourist/Local so that I can contribute to the platform.
+
+  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - workload: Normal
+
+### As a Tourist/Local I want to log in so that I can contribute using my existing account.
+
+  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - workload: Normal
+
+### As a Tourist/Local I want to log out so that I can use a different account.
+
+  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - workload: Easy
+
 ## Done
 
 ### As a Tourist I want to see cover photos of places so that I can visualise list items.
@@ -120,6 +120,6 @@
       - [x] 2. Server GET "/getPlaces?postcode=EX4 4QJ" returns JSON list with dummy data
       - [x] 3, Design Scrollable 'Places' page
       - [x] 4. Create web app
-      - [ ] 5. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
-      - [ ] 6. Client displays place names as a scrollable list of cards
+      - [x] 5. Client sends getPlaces request to server with dummy postcode and receives JSON list of places
+      - [x] 6. Client displays place names as a scrollable list of cards
 

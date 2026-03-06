@@ -12,87 +12,9 @@ import (
 	"testing"
 )
 
-type mockDB struct {
-	rows    logic.PlacesRows
-	dbError error
-}
-
-func (m mockDB) CreateTable(details logic.TableDetails) error {
-	return nil
-}
-
-func (m mockDB) CreatePlace(name, postcode, coverPath string) error {
-	if m.dbError != nil {
-		return m.dbError
-	}
-	return nil
-}
-
-func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.PlacesRows, error) {
-	if m.dbError != nil {
-		return nil, m.dbError
-	}
-	return m.rows, nil
-}
-
-func (m mockDB) Close() error {
-	return nil
-}
-
-type mockRows struct {
-	rows []logic.Place
-	idx  int
-	err  error
-}
-
-func (m *mockRows) Next() bool {
-	if m.err != nil {
-		return false
-	}
-	if m.idx >= len(m.rows) {
-		return false
-	}
-	m.idx++
-	return true
-}
-
-func (m *mockRows) Scan(dest ...interface{}) error {
-	if m.idx == 0 || m.idx > len(m.rows) {
-		return errors.New("scan out of bounds")
-	}
-	if len(dest) != 2 {
-		return errors.New("unexpected scan arg count")
-	}
-	namePtr, ok := dest[0].(*string)
-	if !ok {
-		return errors.New("invalid name dest")
-	}
-	postcodePtr, ok := dest[1].(*string)
-	if !ok {
-		return errors.New("invalid postcode dest")
-	}
-	row := m.rows[m.idx-1]
-	*namePtr = row.Name
-	*postcodePtr = row.Postcode
-	return nil
-}
-
-func (m *mockRows) Err() error {
-	return m.err
-}
-
-func (m *mockRows) Close() error {
-	return nil
-}
-
-type getPlacesResponse struct {
-	Data    []logic.Place `json:"data"`
-	Message string        `json:"message"`
-}
-
 func TestRouter_GetPlaces_Success(t *testing.T) {
-	db := mockDB{rows: &mockRows{rows: []logic.Place{{Name: "Exeter", Postcode: "EX4 4PY"}}}}
-	rt := presentation.NewRouter(db)
+	svc := &mockService{places: []logic.Place{{Name: "Exeter", Postcode: "EX4 4PY"}}}
+	rt := presentation.NewRouter(svc)
 	req := httptest.NewRequest(http.MethodGet, "/getPlaces?postcode=EX4%204PY&filter=district", nil)
 	w := httptest.NewRecorder()
 
@@ -102,18 +24,22 @@ func TestRouter_GetPlaces_Success(t *testing.T) {
 	if res.StatusCode != http.StatusOK {
 		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusOK)
 	}
-	var body getPlacesResponse
+	var body presentation.GeneralResponse
 	if err := json.NewDecoder(res.Body).Decode(&body); err != nil {
 		t.Fatalf("decode response: %v", err)
 	}
-	if len(body.Data) != 1 {
-		t.Fatalf("data length = %d, want 1", len(body.Data))
+	data, ok := body.Data.([]interface{})
+	if !ok {
+		t.Fatalf("expected Data to be []interface{}, got %T", body.Data)
+	}
+	if len(data) != 1 {
+		t.Fatalf("data length = %d, want 1", len(data))
 	}
 }
 
 func TestRouter_GetPlaces_DBError(t *testing.T) {
-	db := mockDB{dbError: errors.New("db down")}
-	rt := presentation.NewRouter(db)
+	svc := &mockService{err: errors.New("db down")}
+	rt := presentation.NewRouter(svc)
 	req := httptest.NewRequest(http.MethodGet, "/getPlaces?postcode=EX4%204PY&filter=district", nil)
 	w := httptest.NewRecorder()
 
@@ -133,10 +59,9 @@ func TestRouter_GetPlaces_DBError(t *testing.T) {
 }
 
 func TestRouter_CreatePlace_Success(t *testing.T) {
-	db := mockDB{}
-	rt := presentation.NewRouter(db)
+	svc := &mockService{}
+	rt := presentation.NewRouter(svc)
 	req := httptest.NewRequest(http.MethodPost, "/createPlace", strings.NewReader(`{"name":"The Tall Statue","postcode":"EX1 1AA","cover_path":"cover.png"}`))
-	// req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
 	rt.CreatePlace(w, req)
@@ -148,8 +73,8 @@ func TestRouter_CreatePlace_Success(t *testing.T) {
 }
 
 func TestRouter_CreatePlace_DBError(t *testing.T) {
-	db := mockDB{dbError: errors.New("db down")}
-	rt := presentation.NewRouter(db)
+	svc := &mockService{err: errors.New("db down")}
+	rt := presentation.NewRouter(svc)
 	req := httptest.NewRequest(http.MethodPost, "/createPlace", strings.NewReader(`{"name":"The Tall Statue","postcode":"EX1 1AA","cover_path":"cover.png"}`))
 	w := httptest.NewRecorder()
 
@@ -164,6 +89,27 @@ func TestRouter_CreatePlace_DBError(t *testing.T) {
 		t.Fatalf("read body: %v", err)
 	}
 	if !strings.Contains(string(body), "Error: failed to create place.") {
+		t.Fatalf("unexpected response body: %s", string(body))
+	}
+}
+
+func TestRouter_CreatePlace_BadRequest(t *testing.T) {
+	svc := &mockService{}
+	rt := presentation.NewRouter(svc)
+	req := httptest.NewRequest(http.MethodPost, "/createPlace", strings.NewReader(`not json`))
+	w := httptest.NewRecorder()
+
+	rt.CreatePlace(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusBadRequest {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusBadRequest)
+	}
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if !strings.Contains(string(body), "Bad Request") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }

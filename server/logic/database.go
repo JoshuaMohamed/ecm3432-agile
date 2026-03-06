@@ -11,7 +11,7 @@ type PlacesRows interface {
 // Database defines the subset of database operations used by the logic layer.
 type Database interface {
 	CreateTable(details TableDetails) error
-	CreatePlace(name, postcode, coverPath string) error
+	CreateRow(table string, fields []string, values []interface{}) error
 	GetPlaces(searchPrefix string, limit, offset int) (PlacesRows, error)
 	Close() error
 }

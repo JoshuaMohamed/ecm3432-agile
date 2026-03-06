@@ -8,7 +8,8 @@ import (
 	"server/logic"
 )
 
-// GetPlaces handles POST requests for places
+
+// CreatePlace handles POST requests for adding a new place
 func (rt *Router) CreatePlace(w http.ResponseWriter, req *http.Request) {
 	var place logic.Place
 
@@ -19,7 +20,7 @@ func (rt *Router) CreatePlace(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	err = logic.CreatePlace(rt.db, place)
+	err = rt.service.CreatePlace(place)
 	if err != nil {
 		slog.Error("Failed to create place.", "error", err)
 		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to create place.")
@@ -39,7 +40,7 @@ func (rt *Router) GetPlaces(w http.ResponseWriter, req *http.Request) {
 	postcode := req.URL.Query().Get("postcode")
 	filter := req.URL.Query().Get("filter")
 
-	data, err := logic.GetPlaces(rt.db, postcode, filter, 100, 0)
+	data, err := rt.service.GetPlaces(postcode, filter, 100, 0)
 	if err != nil {
 		slog.Error("Failed to get places.", "error", err)
 		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to get places. Check the postcode and filter.")
