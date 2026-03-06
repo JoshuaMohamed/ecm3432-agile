@@ -21,7 +21,7 @@ func (rt *Router) CreateAccount(w http.ResponseWriter, req *http.Request) {
 	err = rt.service.CreateAccount(account)
 	if err != nil {
 		slog.Error("Failed to create account.", "error", err)
-		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to create account. Check email, password and role.")
+		writeErrorResponse(w, http.StatusConflict, err.Error())
 		return
 	}
 

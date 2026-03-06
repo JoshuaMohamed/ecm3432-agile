@@ -1,0 +1,87 @@
+/* Sign Up / Log In form */
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.account-heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.account-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.account-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #008cff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.account-button:hover {
+  background: #006fcc;
+}
+
+.account-switch {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0 0;
+}
+
+.account-link {
+  color: #008cff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Manage Account */
+
+.account-manage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.manage-heading {
+  margin: 0;
+}
+
+.account-email {
+  font-size: 16px;
+  margin: 0;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #d32f2f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #b71c1c;
+}

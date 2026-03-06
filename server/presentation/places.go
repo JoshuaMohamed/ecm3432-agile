@@ -43,7 +43,7 @@ func (rt *Router) GetPlaces(w http.ResponseWriter, req *http.Request) {
 	data, err := rt.service.GetPlaces(postcode, filter, 100, 0)
 	if err != nil {
 		slog.Error("Failed to get places.", "error", err)
-		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to get places. Check the postcode and filter.")
+		writeErrorResponse(w, http.StatusInternalServerError, "Error: Failed to get places. Check the postcode and filter.")
 		return
 	}
 

@@ -17,15 +17,18 @@ func CreateAccount(db Database, account Account) error {
 	role := strings.ToLower(account.Role)
 
 	if !IsValidEmail(email) {
-		return fmt.Errorf("Invalid email: %s", email)
+		return fmt.Errorf("Invalid email")
 	}
 
 	if !IsValidRole(role) {
-		return fmt.Errorf("Invalid role: %s", role)
+		return fmt.Errorf("Invalid role")
 	}
 
 	err := db.CreateRow("Accounts", []string{"email", "password", "role"}, []interface{}{email, account.Password, role})
 	if err != nil {
+		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
+			return fmt.Errorf("An account with this email already exists")
+		}
 		return err
 	}
 
