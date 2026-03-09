@@ -15,19 +15,19 @@ func (rt *Router) CreatePlace(w http.ResponseWriter, req *http.Request) {
 
 	err := json.NewDecoder(req.Body).Decode(&place)
 	if err != nil {
-		slog.Error("Failed to decode request body.", "error", err)
-		writeErrorResponse(w, http.StatusBadRequest, "Error: Bad Request.")
+		slog.Error("Failed to decode request body", "error", err)
+		writeErrorResponse(w, http.StatusBadRequest, "Error: Bad Request")
 		return
 	}
 
 	err = rt.service.CreatePlace(place)
 	if err != nil {
-		slog.Error("Failed to create place.", "error", err)
-		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to create place.")
+		slog.Error("Failed to create place", "error", err)
+		writeErrorResponse(w, http.StatusInternalServerError, "Error: failed to create place")
 		return
 	}
 
-	message := "Created place."
+	message := "Created place"
 	slog.Info(message)
 	writeResponse(w, http.StatusOK, GeneralResponse{
 		Data:    "",
@@ -42,8 +42,8 @@ func (rt *Router) GetPlaces(w http.ResponseWriter, req *http.Request) {
 
 	data, err := rt.service.GetPlaces(postcode, filter, 100, 0)
 	if err != nil {
-		slog.Error("Failed to get places.", "error", err)
-		writeErrorResponse(w, http.StatusInternalServerError, "Error: Failed to get places. Check the postcode and filter.")
+		slog.Error("Failed to get places", "error", err)
+		writeErrorResponse(w, http.StatusInternalServerError, "Error: Failed to get places. Check the postcode and filter")
 		return
 	}
 

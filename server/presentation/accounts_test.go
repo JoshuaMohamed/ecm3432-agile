@@ -10,13 +10,13 @@ import (
 	"testing"
 )
 
-func TestRouter_CreateAccount_Success(t *testing.T) {
+func TestRouter_SignUp_Success(t *testing.T) {
 	svc := &mockService{}
 	rt := presentation.NewRouter(svc)
-	req := httptest.NewRequest(http.MethodPost, "/createAccount", strings.NewReader(`{"email":"user@example.com","password":"secret","role":"tourist"}`))
+	req := httptest.NewRequest(http.MethodPost, "/signup", strings.NewReader(`{"email":"user@example.com","password":"secret","role":"tourist"}`))
 	w := httptest.NewRecorder()
 
-	rt.CreateAccount(w, req)
+	rt.SignUp(w, req)
 
 	res := w.Result()
 	if res.StatusCode != http.StatusOK {
@@ -24,13 +24,13 @@ func TestRouter_CreateAccount_Success(t *testing.T) {
 	}
 }
 
-func TestRouter_CreateAccount_DBError(t *testing.T) {
+func TestRouter_SignUp_DBError(t *testing.T) {
 	svc := &mockService{err: errors.New("db down")}
 	rt := presentation.NewRouter(svc)
-	req := httptest.NewRequest(http.MethodPost, "/createAccount", strings.NewReader(`{"email":"user@example.com","password":"secret","role":"tourist"}`))
+	req := httptest.NewRequest(http.MethodPost, "/signup", strings.NewReader(`{"email":"user@example.com","password":"secret","role":"tourist"}`))
 	w := httptest.NewRecorder()
 
-	rt.CreateAccount(w, req)
+	rt.SignUp(w, req)
 
 	res := w.Result()
 	if res.StatusCode != http.StatusInternalServerError {
@@ -40,18 +40,18 @@ func TestRouter_CreateAccount_DBError(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read body: %v", err)
 	}
-	if !strings.Contains(string(body), "Error: failed to create account.") {
+	if !strings.Contains(string(body), "Error: failed to create account") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }
 
-func TestRouter_CreateAccount_BadRequest(t *testing.T) {
+func TestRouter_SignUp_BadRequest(t *testing.T) {
 	svc := &mockService{}
 	rt := presentation.NewRouter(svc)
-	req := httptest.NewRequest(http.MethodPost, "/createAccount", strings.NewReader(`not json`))
+	req := httptest.NewRequest(http.MethodPost, "/signup", strings.NewReader(`not json`))
 	w := httptest.NewRecorder()
 
-	rt.CreateAccount(w, req)
+	rt.SignUp(w, req)
 
 	res := w.Result()
 	if res.StatusCode != http.StatusBadRequest {

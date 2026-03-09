@@ -18,14 +18,14 @@ function AccountPage() {
   async function handleSignUp() {
     setError(null);
     try {
-      const res = await fetch("http://localhost:8080/createAccount", {
+      const res = await fetch("http://localhost:8080/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role: "tourist" }),
       });
       if (!res.ok) {
         const body = await res.json();
-        setError(body.Message || "Failed to create account.");
+        setError(body.Message || "Failed to create account");
         return;
       }
       setLoggedInEmail(email);
@@ -47,7 +47,7 @@ function AccountPage() {
       });
       if (!res.ok) {
         const body = await res.json();
-        setError(body.Message || "Invalid email or password.");
+        setError(body.Message || "Invalid email or password");
         return;
       }
       setLoggedInEmail(email);

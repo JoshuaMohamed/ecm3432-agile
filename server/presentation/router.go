@@ -31,7 +31,8 @@ func NewRouter(service logic.Service) *Router {
 
 	rt.HandleFunc("/createPlace", rt.CreatePlace).Methods("POST", "OPTIONS")
 	rt.HandleFunc("/getPlaces", rt.GetPlaces).Methods("GET", "OPTIONS")
-	rt.HandleFunc("/createAccount", rt.CreateAccount).Methods("POST", "OPTIONS")
+	rt.HandleFunc("/signup", rt.SignUp).Methods("POST", "OPTIONS")
+	rt.HandleFunc("/login", rt.LogIn).Methods("POST", "OPTIONS")
 
 	return rt
 }

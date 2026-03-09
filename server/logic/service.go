@@ -4,7 +4,7 @@ package logic
 type Service interface {
 	CreatePlace(place Place) error
 	GetPlaces(postcode, filter string, limit, offset int) ([]Place, error)
-	CreateAccount(account Account) error
+	SignUp(account Account) error
 }
 
 // ServiceImpl implements Service using a Database.
@@ -20,6 +20,6 @@ func (s *ServiceImpl) GetPlaces(postcode, filter string, limit, offset int) ([]P
 	return GetPlaces(s.DB, postcode, filter, limit, offset)
 }
 
-func (s *ServiceImpl) CreateAccount(account Account) error {
-	return CreateAccount(s.DB, account)
+func (s *ServiceImpl) SignUp(account Account) error {
+	return SignUp(s.DB, account)
 }

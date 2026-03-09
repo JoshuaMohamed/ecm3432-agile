@@ -8,24 +8,24 @@ import (
 )
 
 // GetAccounts handles POST requests for creating a new account
-func (rt *Router) CreateAccount(w http.ResponseWriter, req *http.Request) {
+func (rt *Router) SignUp(w http.ResponseWriter, req *http.Request) {
 	var account logic.Account
 
 	err := json.NewDecoder(req.Body).Decode(&account)
 	if err != nil {
-		slog.Error("Failed to decode request body.", "error", err)
-		writeErrorResponse(w, http.StatusBadRequest, "Error: Bad Request.")
+		slog.Error("Failed to decode request body", "error", err)
+		writeErrorResponse(w, http.StatusBadRequest, "Error: Bad Request")
 		return
 	}
 
-	err = rt.service.CreateAccount(account)
+	err = rt.service.SignUp(account)
 	if err != nil {
-		slog.Error("Failed to create account.", "error", err)
+		slog.Error("Failed to create account", "error", err)
 		writeErrorResponse(w, http.StatusConflict, err.Error())
 		return
 	}
 
-	message := "Created account."
+	message := "Created account"
 	slog.Info(message)
 	writeResponse(w, http.StatusOK, GeneralResponse{
 		Data:    "",

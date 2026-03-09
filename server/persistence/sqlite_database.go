@@ -34,7 +34,7 @@ func Connect() (*sql.DB, error) {
 		return nil, err
 	}
 
-	slog.Info("Connected to the SQLite database successfully.")
+	slog.Info("Connected to the SQLite database successfully")
 	return db, nil
 }
 

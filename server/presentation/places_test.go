@@ -88,7 +88,7 @@ func TestRouter_CreatePlace_DBError(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read body: %v", err)
 	}
-	if !strings.Contains(string(body), "Error: failed to create place.") {
+	if !strings.Contains(string(body), "Error: failed to create place") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }

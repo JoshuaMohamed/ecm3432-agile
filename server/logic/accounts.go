@@ -12,7 +12,7 @@ type Account struct {
 	Role     string `json:"role"`
 }
 
-func CreateAccount(db Database, account Account) error {
+func SignUp(db Database, account Account) error {
 	email := strings.ToLower(account.Email)
 	role := strings.ToLower(account.Role)
 
