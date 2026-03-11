@@ -1,0 +1,75 @@
+@startuml
+title User Session Sequence
+actor Tourist as user
+participant Client as client
+participant Server as server
+participant Database as db
+
+skinparam sequenceMessageAlign left
+note over user: Search Places (No Auth)
+user -> client: Search Places
+client -> server: /getPlaces
+client --> server: Postcode, Filter
+
+alt Valid Postcode & Filter == True
+    server -> db: GetPlaces(Postcode, Filter)
+    db --> server: Rows
+    server -> db: GetRating(Place)
+    db --> server: Average
+    server --> client: Places
+else
+    server --> client: "Error: Invalid postcode or filter"
+end
+
+note over user: Sign Up (No Auth)
+user -> client: Sign Up
+client -> server: /signup
+client --> server: Email, Password, Role
+server -> db: CreateRow("Accounts", Account)
+
+alt Account Created == Success
+    db --> server: Success
+    server --> client: SessionToken
+    server --> db: UpsertRow("Sessions", Email, SessionToken)
+else
+    db --> server: Error
+    server --> client: "Error: Account with email exists"
+end
+
+note over user: Log Out (Auth)
+user -> client: Log Out
+client -> server: /logout
+client --> server: Email, SessionToken
+server --> db: DeleteRow("Sessions", Email)
+
+note over user: Log In (No Auth)
+user -> client: Log In
+client -> server: /login
+client --> server: Email, Password
+server -> db: Query("Accounts", Account)
+
+alt Matching Account == Found
+    db --> server: Found
+    server --> client: SessionToken
+    server --> db: UpsertRow("Sessions", Email, SessionToken)
+else
+    db --> server: Error
+    server --> client: "Error: Incorrect email or password"
+end
+
+note over user: Rate Place (Auth)
+user -> client: Rate
+client -> server: /rate
+client --> server: Place, Rating, Email, SessionToken
+server -> db: Query("Sessions", Email, SessionToken)
+
+alt Matching Session == Found
+    db --> server: Found
+    server -> db: UpsertRow("Ratings", Email, Place, Rating)
+    server --> client: "Rating added"
+else
+    db --> server: Error
+    server --> client: "Error: Please log in"
+end
+
+@enduml
