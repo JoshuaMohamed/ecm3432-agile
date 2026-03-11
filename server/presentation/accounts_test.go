@@ -40,7 +40,7 @@ func TestRouter_SignUp_DBError(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read body: %v", err)
 	}
-	if !strings.Contains(string(body), "Error: failed to create account") {
+	if !strings.Contains(string(body), "db down") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }
@@ -52,6 +52,62 @@ func TestRouter_SignUp_BadRequest(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	rt.SignUp(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusBadRequest {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusBadRequest)
+	}
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if !strings.Contains(string(body), "Bad Request") {
+		t.Fatalf("unexpected response body: %s", string(body))
+	}
+}
+
+func TestRouter_LogIn_Success(t *testing.T) {
+	svc := &mockService{}
+	rt := presentation.NewRouter(svc)
+	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(`{"email":"user@example.com","password":"secret"}`))
+	w := httptest.NewRecorder()
+
+	rt.LogIn(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusOK {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusOK)
+	}
+}
+
+func TestRouter_LogIn_DBError(t *testing.T) {
+	svc := &mockService{err: errors.New("db down")}
+	rt := presentation.NewRouter(svc)
+	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(`{"email":"user@example.com","password":"secret"}`))
+	w := httptest.NewRecorder()
+
+	rt.LogIn(w, req)
+
+	res := w.Result()
+	if res.StatusCode != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want %d", res.StatusCode, http.StatusInternalServerError)
+	}
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		t.Fatalf("read body: %v", err)
+	}
+	if !strings.Contains(string(body), "db down") {
+		t.Fatalf("unexpected response body: %s", string(body))
+	}
+}
+
+func TestRouter_LogIn_BadRequest(t *testing.T) {
+	svc := &mockService{}
+	rt := presentation.NewRouter(svc)
+	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(`not json`))
+	w := httptest.NewRecorder()
+
+	rt.LogIn(w, req)
 
 	res := w.Result()
 	if res.StatusCode != http.StatusBadRequest {

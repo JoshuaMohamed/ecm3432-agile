@@ -8,7 +8,7 @@ import (
 )
 
 type mockDB struct {
-	rows    logic.PlacesRows
+	rows    logic.DBRows
 	dbError error
 }
 
@@ -16,14 +16,21 @@ func (m mockDB) CreateTable(details logic.TableDetails) error {
 	return nil
 }
 
-func (m mockDB) CreateRow(table string, fields []string, values []interface{}) error {
+func (m mockDB) InsertRow(table string, fields []string, values []interface{}) error {
 	if m.dbError != nil {
 		return m.dbError
 	}
 	return nil
 }
 
-func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.PlacesRows, error) {
+func (m mockDB) UpsertRow(table string, fields []string, values []interface{}) error {
+	if m.dbError != nil {
+		return m.dbError
+	}
+	return nil
+}
+
+func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.DBRows, error) {
 	if m.dbError != nil {
 		return nil, m.dbError
 	}
@@ -55,7 +62,7 @@ func (m *mockRows) Scan(dest ...interface{}) error {
 	if m.idx == 0 || m.idx > len(m.rows) {
 		return errors.New("scan out of bounds")
 	}
-	if len(dest) != 2 {
+	if len(dest) != 3 {
 		return errors.New("unexpected scan arg count")
 	}
 	namePtr, ok := dest[0].(*string)
@@ -66,9 +73,14 @@ func (m *mockRows) Scan(dest ...interface{}) error {
 	if !ok {
 		return errors.New("invalid postcode dest")
 	}
+	coverPtr, ok := dest[2].(*string)
+	if !ok {
+		return errors.New("invalid cover dest")
+	}
 	row := m.rows[m.idx-1]
 	*namePtr = row.Name
 	*postcodePtr = row.Postcode
+	*coverPtr = row.CoverPath
 	return nil
 }
 

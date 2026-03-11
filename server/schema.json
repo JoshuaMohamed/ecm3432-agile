@@ -6,5 +6,13 @@
   {
     "name": "Accounts",
     "schema": "id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, role TEXT NOT NULL"
+  },
+  {
+    "name": "Sessions",
+    "schema": "id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT UNIQUE NOT NULL, token TEXT NOT NULL"
+  },
+  {
+    "name": "Ratings",
+    "schema": "id INTEGER PRIMARY KEY AUTOINCREMENT, place TEXT NOT NULL, email TEXT NOT NULL, rating INTEGER NOT NULL"
   }
 ]

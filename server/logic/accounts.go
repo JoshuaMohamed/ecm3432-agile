@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 type Account struct {
@@ -12,25 +14,39 @@ type Account struct {
 	Role     string `json:"role"`
 }
 
-func SignUp(db Database, account Account) error {
+type Session struct {
+	Token string `json:"token"`
+}
+
+func SignUp(db Database, account Account) (Session, error) {
 	email := strings.ToLower(account.Email)
 	role := strings.ToLower(account.Role)
+
+	if !IsValidEmail(email) {
+		return Session{}, fmt.Errorf("Invalid email")
+	}
+
+	if !IsValidRole(role) {
+		return Session{}, fmt.Errorf("Invalid role")
+	}
+
+	token := generateToken()
+	err := db.UpsertRow("Sessions", []string{"email", "token"}, []interface{}{email, token})
+	if err != nil {
+		return Session{}, err
+	}
+
+	return Session{Token: token}, nil
+}
+
+func LogIn(db Database, account Account) error {
+	email := strings.ToLower(account.Email)
 
 	if !IsValidEmail(email) {
 		return fmt.Errorf("Invalid email")
 	}
 
-	if !IsValidRole(role) {
-		return fmt.Errorf("Invalid role")
-	}
-
-	err := db.CreateRow("Accounts", []string{"email", "password", "role"}, []interface{}{email, account.Password, role})
-	if err != nil {
-		if strings.Contains(err.Error(), "UNIQUE constraint failed") {
-			return fmt.Errorf("An account with this email already exists")
-		}
-		return err
-	}
+	// Log in
 
 	return nil
 }
@@ -42,4 +58,8 @@ func IsValidEmail(email string) bool {
 
 func IsValidRole(role string) bool {
 	return role == "tourist" || role == "local"
+}
+
+func generateToken() string {
+	return uuid.NewString()
 }

@@ -40,11 +40,11 @@ func Connect() (*sql.DB, error) {
 
 func (c *DatabaseClient) CreateTable(details logic.TableDetails) error {
 	query := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (%s);", details.Name, details.Schema)
-	_, err := c.Exec(query)
+	_, err := c.db.Exec(query)
 	return err
 }
 
-func (c *DatabaseClient) CreateRow(table string, fields []string, values []interface{}) error {
+func (c *DatabaseClient) InsertRow(table string, fields []string, values []interface{}) error {
 	placeholders := make([]string, len(fields))
 	for i := range placeholders {
 		placeholders[i] = "?"
@@ -54,16 +54,36 @@ func (c *DatabaseClient) CreateRow(table string, fields []string, values []inter
 		strings.Join(fields, ","),
 		strings.Join(placeholders, ","),
 	)
-	_, err := c.Exec(query, values...)
+	_, err := c.db.Exec(query, values...)
 	return err
 }
 
-func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (logic.PlacesRows, error) {
+func (c *DatabaseClient) UpsertRow(table string, fields []string, values []interface{}) error {
+	placeholders := make([]string, len(fields))
+	for i := range placeholders {
+		placeholders[i] = "?"
+	}
+	updates := make([]string, len(fields))
+	for i, f := range fields {
+		updates[i] = fmt.Sprintf("%s = excluded.%s", f, f)
+	}
+	query := fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s) ON CONFLICT DO UPDATE SET %s;",
+		table,
+		strings.Join(fields, ","),
+		strings.Join(placeholders, ","),
+		strings.Join(updates, ","),
+	)
+	_, err := c.db.Exec(query, values...)
+	return err
+}
+
+func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (logic.DBRows, error) {
 	return c.db.Query("SELECT name,postcode,cover FROM Places WHERE postcode LIKE ? LIMIT ? OFFSET ?;", prefix+"%", limit, offset)
 }
 
-func (c *DatabaseClient) Exec(query string, args ...interface{}) (sql.Result, error) {
-	return c.db.Exec(query, args...)
+func (c *DatabaseClient) Query(table string, key, value string) (logic.DBRows, error) {
+	query := fmt.Sprintf("SELECT * FROM %s WHERE ? IS ?;", table)
+	return c.db.Query(query, key, value)
 }
 
 func (c *DatabaseClient) Close() error {

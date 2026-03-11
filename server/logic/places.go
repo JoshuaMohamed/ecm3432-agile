@@ -17,7 +17,7 @@ func CreatePlace(db Database, place Place) error {
 		return fmt.Errorf("Invalid postcode: %s", place.Postcode)
 	}
 
-	err := db.CreateRow("Places", []string{"name", "postcode", "cover"}, []interface{}{place.Name, place.Postcode, place.CoverPath})
+	err := db.InsertRow("Places", []string{"name", "postcode", "cover"}, []interface{}{place.Name, place.Postcode, place.CoverPath})
 	if err != nil {
 		return err
 	}

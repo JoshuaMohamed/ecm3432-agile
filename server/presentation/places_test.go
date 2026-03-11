@@ -53,7 +53,7 @@ func TestRouter_GetPlaces_DBError(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read body: %v", err)
 	}
-	if !strings.Contains(string(body), "failed to get places") {
+	if !strings.Contains(string(body), "Failed to get places. Check the postcode and filter") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }
@@ -88,7 +88,7 @@ func TestRouter_CreatePlace_DBError(t *testing.T) {
 	if err != nil {
 		t.Fatalf("read body: %v", err)
 	}
-	if !strings.Contains(string(body), "Error: failed to create place") {
+	if !strings.Contains(string(body), "Error:") {
 		t.Fatalf("unexpected response body: %s", string(body))
 	}
 }

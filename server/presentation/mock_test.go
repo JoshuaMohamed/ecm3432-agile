@@ -18,6 +18,10 @@ func (m *mockService) GetPlaces(postcode, filter string, limit, offset int) ([]l
 	return m.places, nil
 }
 
-func (m *mockService) SignUp(place logic.Account) error {
+func (m *mockService) SignUp(place logic.Account) (logic.Session, error) {
+	return logic.Session{}, m.err
+}
+
+func (m *mockService) LogIn(place logic.Account) error {
 	return m.err
 }
