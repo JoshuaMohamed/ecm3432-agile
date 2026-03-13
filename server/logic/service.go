@@ -5,7 +5,9 @@ type Service interface {
 	CreatePlace(place Place) error
 	GetPlaces(postcode, filter string, limit, offset int) ([]Place, error)
 	SignUp(account Account) (Session, error)
-	LogIn(account Account) error
+	LogIn(account Account) (Session, error)
+	LogOut(token string) error
+	ValidateSession(token string) (string, error)
 }
 
 // ServiceImpl implements Service using a Database.
@@ -25,6 +27,14 @@ func (s *ServiceImpl) SignUp(account Account) (Session, error) {
 	return SignUp(s.DB, account)
 }
 
-func (s *ServiceImpl) LogIn(account Account) error {
+func (s *ServiceImpl) LogIn(account Account) (Session, error) {
 	return LogIn(s.DB, account)
+}
+
+func (s *ServiceImpl) LogOut(token string) error {
+	return LogOut(s.DB, token)
+}
+
+func (s *ServiceImpl) ValidateSession(token string) (string, error) {
+	return ValidateSession(s.DB, token)
 }

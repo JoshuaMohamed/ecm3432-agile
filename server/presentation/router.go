@@ -33,6 +33,8 @@ func NewRouter(service logic.Service) *Router {
 	rt.HandleFunc("/getPlaces", rt.GetPlaces).Methods("GET", "OPTIONS")
 	rt.HandleFunc("/signup", rt.SignUp).Methods("POST", "OPTIONS")
 	rt.HandleFunc("/login", rt.LogIn).Methods("POST", "OPTIONS")
+	rt.HandleFunc("/logout", rt.LogOut).Methods("DELETE", "OPTIONS")
+	rt.HandleFunc("/session", rt.ValidateSession).Methods("GET", "OPTIONS")
 
 	return rt
 }
@@ -40,7 +42,7 @@ func NewRouter(service logic.Service) *Router {
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 

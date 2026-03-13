@@ -7,47 +7,13 @@ import (
 	"testing"
 )
 
-type mockDB struct {
-	rows    logic.DBRows
-	dbError error
-}
-
-func (m mockDB) CreateTable(details logic.TableDetails) error {
-	return nil
-}
-
-func (m mockDB) InsertRow(table string, fields []string, values []interface{}) error {
-	if m.dbError != nil {
-		return m.dbError
-	}
-	return nil
-}
-
-func (m mockDB) UpsertRow(table string, fields []string, values []interface{}) error {
-	if m.dbError != nil {
-		return m.dbError
-	}
-	return nil
-}
-
-func (m mockDB) GetPlaces(searchPrefix string, limit, offset int) (logic.DBRows, error) {
-	if m.dbError != nil {
-		return nil, m.dbError
-	}
-	return m.rows, nil
-}
-
-func (m mockDB) Close() error {
-	return nil
-}
-
-type mockRows struct {
+type mockPlaceRows struct {
 	rows []logic.Place
 	idx  int
 	err  error
 }
 
-func (m *mockRows) Next() bool {
+func (m *mockPlaceRows) Next() bool {
 	if m.err != nil {
 		return false
 	}
@@ -58,7 +24,7 @@ func (m *mockRows) Next() bool {
 	return true
 }
 
-func (m *mockRows) Scan(dest ...interface{}) error {
+func (m *mockPlaceRows) Scan(dest ...interface{}) error {
 	if m.idx == 0 || m.idx > len(m.rows) {
 		return errors.New("scan out of bounds")
 	}
@@ -84,11 +50,11 @@ func (m *mockRows) Scan(dest ...interface{}) error {
 	return nil
 }
 
-func (m *mockRows) Err() error {
+func (m *mockPlaceRows) Err() error {
 	return m.err
 }
 
-func (m *mockRows) Close() error {
+func (m *mockPlaceRows) Close() error {
 	return nil
 }
 
@@ -134,9 +100,9 @@ func TestCreatePlace(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.name == "db error" {
-				tt.db = mockDB{dbError: errors.New("db down")}
+				tt.db = &mockDB{insertErr: errors.New("db down")}
 			} else {
-				tt.db = mockDB{}
+				tt.db = &mockDB{}
 			}
 			gotErr := logic.CreatePlace(tt.db, logic.Place{Name: tt.placeName, Postcode: tt.postcode, CoverPath: tt.coverPath})
 			if gotErr != nil {
@@ -199,11 +165,11 @@ func TestGetPlaces(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.name == "db error" {
-				tt.db = mockDB{dbError: errors.New("db down")}
+				tt.db = &mockDB{getPlacesErr: errors.New("db down")}
 			} else if tt.name == "success" {
-				tt.db = mockDB{rows: &mockRows{rows: []logic.Place{{Name: "Exeter", Postcode: "EX4 4PY"}}}}
+				tt.db = &mockDB{rows: &mockPlaceRows{rows: []logic.Place{{Name: "Exeter", Postcode: "EX4 4PY"}}}}
 			} else {
-				tt.db = mockDB{}
+				tt.db = &mockDB{}
 			}
 			got, gotErr := logic.GetPlaces(tt.db, tt.postcode, tt.filter, tt.limit, tt.offset)
 			if gotErr != nil {

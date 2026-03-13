@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./AccountPage.css";
 import TopBar from "../../components/TopBar/TopBar";
@@ -9,11 +9,43 @@ import ManageAccount from "../../components/ManageAccount/ManageAccount";
 type View = "signup" | "login" | "manage";
 
 function AccountPage() {
+  const [hasSession, setHasSession] = useState<boolean>(false);
   const [view, setView] = useState<View>("signup");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loggedInEmail, setLoggedInEmail] = useState<string | null>(null);
+
+  async function validateSession() {
+    try {
+      const res = await fetch("http://localhost:8080/session", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (!res.ok) {
+        setHasSession(false);
+        setLoggedInEmail(null);
+        setView("signup");
+        return;
+      }
+
+      const body = await res.json();
+      const sessionEmail = body?.Data?.email;
+
+      setHasSession(true);
+      setLoggedInEmail(typeof sessionEmail === "string" ? sessionEmail : null);
+      setView("manage");
+    } catch {
+      setHasSession(false);
+      setLoggedInEmail(null);
+      setView("signup");
+    }
+  }
+
+  useEffect(() => {
+    validateSession();
+  }, []);
 
   async function handleSignUp() {
     setError(null);
@@ -32,7 +64,7 @@ function AccountPage() {
       setLoggedInEmail(email);
       setEmail("");
       setPassword("");
-      setView("manage");
+      await validateSession();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -55,17 +87,28 @@ function AccountPage() {
       setLoggedInEmail(email);
       setEmail("");
       setPassword("");
-      setView("manage");
+      await validateSession();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
   }
 
-  function handleLogOut() {
+  async function handleLogOut() {
+    setError(null);
+
+    try {
+      await fetch("http://localhost:8080/logout", {
+        method: "DELETE",
+        credentials: "include",
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    }
+
+    setHasSession(false);
     setLoggedInEmail(null);
     setEmail("");
     setPassword("");
-    setError(null);
     setView("signup");
   }
 
@@ -79,7 +122,7 @@ function AccountPage() {
       <TopBar />
 
       <main className="content">
-        {view === "signup" && (
+        {!hasSession && view === "signup" && (
           <SignUpForm
             email={email}
             password={password}
@@ -90,7 +133,7 @@ function AccountPage() {
           />
         )}
 
-        {view === "login" && (
+        {!hasSession && view === "login" && (
           <LogInForm
             email={email}
             password={password}
@@ -101,7 +144,7 @@ function AccountPage() {
           />
         )}
 
-        {view === "manage" && loggedInEmail && (
+        {hasSession && (
           <ManageAccount email={loggedInEmail} onLogOut={handleLogOut} />
         )}
 

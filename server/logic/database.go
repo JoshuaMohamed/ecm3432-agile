@@ -13,7 +13,9 @@ type Database interface {
 	CreateTable(details TableDetails) error
 	InsertRow(table string, fields []string, values []interface{}) error
 	UpsertRow(table string, fields []string, values []interface{}) error
+	DeleteRows(table, key, value string) error
 	GetPlaces(searchPrefix string, limit, offset int) (DBRows, error)
+	Query(table, key, value string) (DBRows, error)
 	Close() error
 }
 

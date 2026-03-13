@@ -5,6 +5,7 @@ import "server/logic"
 type mockService struct {
 	places []logic.Place
 	err    error
+	email  string
 }
 
 func (m *mockService) CreatePlace(place logic.Place) error {
@@ -22,6 +23,17 @@ func (m *mockService) SignUp(place logic.Account) (logic.Session, error) {
 	return logic.Session{}, m.err
 }
 
-func (m *mockService) LogIn(place logic.Account) error {
+func (m *mockService) LogIn(place logic.Account) (logic.Session, error) {
+	return logic.Session{}, m.err
+}
+
+func (m *mockService) LogOut(token string) error {
 	return m.err
+}
+
+func (m *mockService) ValidateSession(token string) (string, error) {
+	if m.err != nil {
+		return "", m.err
+	}
+	return m.email, nil
 }

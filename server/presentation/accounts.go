@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 	"server/logic"
+	"time"
 )
 
 // SignUp handles POST requests for creating a new account
@@ -52,17 +53,79 @@ func (rt *Router) LogIn(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	err = rt.service.LogIn(account)
+	session, err := rt.service.LogIn(account)
 	if err != nil {
 		slog.Error("Failed to authenticate credentials", "error", err)
 		writeErrorResponse(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
+	http.SetCookie(w, &http.Cookie{
+		Name:     "session_token",
+		Value:    session.Token,
+		Path:     "/",
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+	})
+
 	message := "Successfully logged in"
 	slog.Info(message)
 	writeResponse(w, http.StatusOK, GeneralResponse{
 		Data:    "",
 		Message: message,
+	})
+}
+
+// LogOut handles DELETE requests for deleting session
+func (rt *Router) LogOut(w http.ResponseWriter, req *http.Request) {
+	cookie, err := req.Cookie("session_token")
+	if err != nil || cookie.Value == "" {
+		writeErrorResponse(w, http.StatusUnauthorized, "Invalid session")
+		return
+	}
+
+	err = rt.service.LogOut(cookie.Value)
+	if err != nil {
+		slog.Error("Failed to validate session", "error", err)
+		writeErrorResponse(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	// Expire the session token cookie on successful session deletion.
+	http.SetCookie(w, &http.Cookie{
+		Name:     "session_token",
+		Value:    "",
+		Path:     "/",
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+		Expires:  time.Unix(0, 0),
+		MaxAge:   -1,
+	})
+
+	message := "Successfully logged out"
+	slog.Info(message)
+	writeResponse(w, http.StatusOK, GeneralResponse{
+		Data:    "",
+		Message: message,
+	})
+}
+
+// ValidateSession returns the email for the current session token.
+func (rt *Router) ValidateSession(w http.ResponseWriter, req *http.Request) {
+	cookie, err := req.Cookie("session_token")
+	if err != nil || cookie.Value == "" {
+		writeErrorResponse(w, http.StatusUnauthorized, "Invalid session")
+		return
+	}
+
+	email, err := rt.service.ValidateSession(cookie.Value)
+	if err != nil {
+		writeErrorResponse(w, http.StatusUnauthorized, "Invalid session")
+		return
+	}
+
+	writeResponse(w, http.StatusOK, GeneralResponse{
+		Data: map[string]string{"email": email},
+		Message: "Session valid",
 	})
 }

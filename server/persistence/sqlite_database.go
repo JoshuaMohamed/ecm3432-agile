@@ -24,7 +24,7 @@ func NewDatabaseClient() (*DatabaseClient, error) {
 }
 
 func Connect() (*sql.DB, error) {
-	db, err := sql.Open("sqlite", "./server.db?_pragma=foreign_keys(1)")
+	db, err := sql.Open("sqlite", "./server.db?_pragma=foreign_keys(1)&_pragma=busy_timeout(5000)")
 	if err != nil {
 		return nil, err
 	}
@@ -77,13 +77,19 @@ func (c *DatabaseClient) UpsertRow(table string, fields []string, values []inter
 	return err
 }
 
+func (c *DatabaseClient) DeleteRows(table, key, value string) error {
+	query := fmt.Sprintf("DELETE FROM %s WHERE %s = ?;", table, key)
+	_, err := c.db.Exec(query, value)
+	return err
+}
+
 func (c *DatabaseClient) GetPlaces(prefix string, limit, offset int) (logic.DBRows, error) {
 	return c.db.Query("SELECT name,postcode,cover FROM Places WHERE postcode LIKE ? LIMIT ? OFFSET ?;", prefix+"%", limit, offset)
 }
 
-func (c *DatabaseClient) Query(table string, key, value string) (logic.DBRows, error) {
-	query := fmt.Sprintf("SELECT * FROM %s WHERE ? IS ?;", table)
-	return c.db.Query(query, key, value)
+func (c *DatabaseClient) Query(table, key, value string) (logic.DBRows, error) {
+	query := fmt.Sprintf("SELECT * FROM %s WHERE %s = ?;", table, key)
+	return c.db.Query(query, value)
 }
 
 func (c *DatabaseClient) Close() error {
