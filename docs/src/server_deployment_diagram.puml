@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_LEFT_RIGHT()
+
+!define DEVICONS https://raw.githubusercontent.com/plantuml/plantuml-stdlib/master/stdlib/tupadr3/devicons2
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS/react_original.puml
+!include DEVICONS/go_original_wordmark.puml
+!include DEVICONS/sqlite_wordmark.puml
+!include FONTAWESOME/users.puml
+
+Person(user, "Tourist/Local", $sprite="users")
+Container(client, "Client", "ReactJS", "Community Tourist Assistant web application", $sprite="react_original")
+Container(server, "Server", "Go", "Handles all business logic", $sprite="go_original_wordmark")
+ContainerDb(db, "Database", "Sqlite", "Places, Account & Sessions", $sprite="sqlite_wordmark")
+
+Rel(user, client, "Uses", "http")
+Rel(client, server, "Uses", "http")
+Rel_R(server, db, "Read/Write")
+@enduml

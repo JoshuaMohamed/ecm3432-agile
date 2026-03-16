@@ -4,28 +4,23 @@
 
 ### As a Tourist I want to leave a star rating out of 5 so that I can raise the profile of a place.
 
-  - tags: [Sprint 3, Epic: ‘Place’ details page]
-  - workload: Normal
+  - tags: [Out of Scope, Epic: ‘Place’ details page]
 
 ### As a Tourist I want to see a place's star rating out of 5 so that I can compare it to other options.
 
-  - tags: [Sprint 3, Epic: Scrollable 'Places' page]
-  - workload: Easy
+  - tags: [Out of Scope, Epic: Scrollable 'Places' page]
 
 ### As a Local I want to upload new places so that I can contribute to the platform.
 
-  - tags: [Sprint 4, Epic: ‘Upload’ page]
-  - workload: Hard
+  - tags: [Out of Scope, Epic: ‘Upload’ page]
 
 ### As a Tourist/Local I want to see a list of my badges so that I know my contributions are worthwhile.
 
-  - tags: [Sprint 4, Epic: ‘My Badges’ page]
-  - workload: Normal
+  - tags: [Out of Scope, Epic: ‘My Badges’ page]
 
 ### As an Administrator I want to assign badges so that users are incentivised to contribute.
 
-  - tags: [Sprint 4, Epic: ‘Manage Accounts’ admin page]
-  - workload: Normal
+  - tags: [Out of Scope, Epic: ‘Manage Accounts’ admin page]
 
 ### As a Tourist/Local I want to search the place list so that I can find details for a specific place.
 
@@ -73,22 +68,22 @@
 
 ## In Progress
 
-### As a Tourist/Local I want to create an account of type Tourist/Local so that I can contribute to the platform.
-
-  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
-  - workload: Normal
-
-### As a Tourist/Local I want to log in so that I can contribute using my existing account.
-
-  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
-  - workload: Normal
+## Done
 
 ### As a Tourist/Local I want to log out so that I can use a different account.
 
   - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
   - workload: Easy
 
-## Done
+### As a Tourist/Local I want to log in so that I can contribute using my existing account.
+
+  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - workload: Normal
+
+### As a Tourist/Local I want to create an account of type Tourist/Local so that I can contribute to the platform.
+
+  - tags: [Sprint 3, Epic: ‘Sign Up or Log In’ page]
+  - workload: Normal
 
 ### As a Tourist I want to see cover photos of places so that I can visualise list items.
 

@@ -1,0 +1,102 @@
+@startuml
+namespace presentation {
+    class "GeneralResponse" << (S,Aquamarine) >> {
+        + Data <font color=blue>interface</font>{}
+        + Message <font color=blue>interface</font>{}
+        + Metadata <font color=blue>interface</font>{}
+
+    }
+    class "Router" << (S,Aquamarine) >> {
+        - service logic.Service
+
+        + SignUp(w http.ResponseWriter, req *http.Request) 
+        + LogIn(w http.ResponseWriter, req *http.Request) 
+        + LogOut(w http.ResponseWriter, req *http.Request) 
+        + ValidateSession(w http.ResponseWriter, req *http.Request) 
+        + CreatePlace(w http.ResponseWriter, req *http.Request) 
+        + GetPlaces(w http.ResponseWriter, req *http.Request) 
+
+    }
+}
+"mux.Router" *-- "presentation.Router"
+
+namespace logic {
+    class "Account" << (S,Aquamarine) >> {
+        + Email string
+        + Password string
+        + Role string
+
+    }
+    interface "DBRows"  {
+        + Next() bool
+        + Scan(dest ...<font color=blue>interface</font>{}) error
+        + Err() error
+        + Close() error
+
+    }
+    interface "Database"  {
+        + CreateTable(details TableDetails) error
+        + InsertRow(table string, fields []string, values []<font color=blue>interface</font>{}) error
+        + UpsertRow(table string, fields []string, values []<font color=blue>interface</font>{}) error
+        + DeleteRows(table string, key string, value string) error
+        + GetPlaces(searchPrefix string, limit int, offset int) (DBRows, error)
+        + Query(table string, key string, value string) (DBRows, error)
+        + Close() error
+
+    }
+    class "Place" << (S,Aquamarine) >> {
+        + Name string
+        + Postcode string
+        + CoverPath string
+
+    }
+    interface "Service"  {
+        + CreatePlace(place Place) error
+        + GetPlaces(postcode string, filter string, limit int, offset int) ([]Place, error)
+        + SignUp(account Account) (Session, error)
+        + LogIn(account Account) (Session, error)
+        + LogOut(token string) error
+        + ValidateSession(token string) (string, error)
+
+    }
+    class "ServiceImpl" << (S,Aquamarine) >> {
+        + DB Database
+
+        + CreatePlace(place Place) error
+        + GetPlaces(postcode string, filter string, limit int, offset int) ([]Place, error)
+        + SignUp(account Account) (Session, error)
+        + LogIn(account Account) (Session, error)
+        + LogOut(token string) error
+        + ValidateSession(token string) (string, error)
+
+    }
+    class "Session" << (S,Aquamarine) >> {
+        + Email string
+        + Token string
+
+    }
+    class "TableDetails" << (S,Aquamarine) >> {
+        + Name string
+        + Schema string
+
+    }
+}
+"logic.Service" <|-- "logic.ServiceImpl"
+
+namespace persistence {
+    class "DatabaseClient" << (S,Aquamarine) >> {
+        - db *sql.DB
+
+        + CreateTable(details logic.TableDetails) error
+        + InsertRow(table string, fields []string, values []<font color=blue>interface</font>{}) error
+        + UpsertRow(table string, fields []string, values []<font color=blue>interface</font>{}) error
+        + DeleteRows(table string, key string, value string) error
+        + GetPlaces(prefix string, limit int, offset int) (logic.DBRows, error)
+        + Query(table string, key string, value string) (logic.DBRows, error)
+        + Close() error
+
+    }
+}
+"logic.Database" <|-- "persistence.DatabaseClient"
+
+@enduml
