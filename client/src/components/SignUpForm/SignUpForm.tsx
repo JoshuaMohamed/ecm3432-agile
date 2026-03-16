@@ -1,3 +1,4 @@
+import AccountFormFields from "../AccountFormFields/AccountFormFields";
 import "../AccountForm.css";
 
 interface SignUpFormProps {
@@ -20,19 +21,11 @@ function SignUpForm({
   return (
     <div className="account-form">
       <h2 className="account-heading">Sign Up</h2>
-      <input
-        className="account-input"
-        type="email"
-        placeholder="Email address"
-        value={email}
-        onChange={(e) => onEmailChange(e.target.value)}
-      />
-      <input
-        className="account-input"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => onPasswordChange(e.target.value)}
+      <AccountFormFields
+        email={email}
+        password={password}
+        onEmailChange={onEmailChange}
+        onPasswordChange={onPasswordChange}
       />
       <button className="account-button" onClick={onSubmit}>
         Sign Up

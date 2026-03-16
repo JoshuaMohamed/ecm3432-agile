@@ -110,7 +110,7 @@ func (rt *Router) LogOut(w http.ResponseWriter, req *http.Request) {
 	})
 }
 
-// ValidateSession returns the email for the current session token.
+// ValidateSession returns the email for the current session token
 func (rt *Router) ValidateSession(w http.ResponseWriter, req *http.Request) {
 	cookie, err := req.Cookie("session_token")
 	if err != nil || cookie.Value == "" {
@@ -125,7 +125,7 @@ func (rt *Router) ValidateSession(w http.ResponseWriter, req *http.Request) {
 	}
 
 	writeResponse(w, http.StatusOK, GeneralResponse{
-		Data: map[string]string{"email": email},
+		Data:    map[string]string{"email": email},
 		Message: "Session valid",
 	})
 }

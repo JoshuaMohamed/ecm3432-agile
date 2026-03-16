@@ -1,3 +1,4 @@
+import StarRating from "../StarRating/StarRating";
 import "./PlaceCard.css";
 
 type PlaceCardProps = {
@@ -31,15 +32,7 @@ function PlaceCard({
             <h2>{name}</h2>
             <p className="postcode">{postcode}</p>
           </div>
-          <div className="rating">
-            {[0, 1, 2, 3, 4].map((index) => (
-              <span
-                key={index}
-                className={`star ${index < safeRating ? "filled" : ""}`}
-              />
-            ))}
-            <span className="reviews">{safeReviews} reviews</span>
-          </div>
+          <StarRating rating={safeRating} reviews={safeReviews} />
         </div>
         <p className="summary">{safeSummary}</p>
       </div>

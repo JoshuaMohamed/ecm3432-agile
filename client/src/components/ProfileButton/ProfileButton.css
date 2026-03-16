@@ -1,0 +1,36 @@
+.profile-button {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #111;
+  border-radius: 999px;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.profile-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translate(-1px, 6px);
+}
+
+.profile-icon::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border: 2px solid #111;
+  border-radius: 999px;
+}
+
+.profile-icon::after {
+  content: "";
+  width: 22px;
+  height: 12px;
+  border: 2px solid #111;
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+}
